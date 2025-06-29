@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <title>Love Mo Ko?</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: pink;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: white;
+      margin: 0;
+    }
+
+    .emoji-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .emoji-container img {
+      width: 100%;
+      max-width: 250px;
+      border: 10px solid white;
+      border-radius: 20px;
+    }
+
+    #popup {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      margin-left: 30px;
+      transform: translateY(-50%);
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 16px;
+      font-weight: lighter;
+      z-index: 999;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      max-width: 400px;
+      width: 90%;
+      font-size: 1.1rem;
+    }
+
+    #popup img {
+      margin-top: 12px;
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
+    .button-group {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 140px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 14px 26px;
+      font-size: 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      position: absolute;
+      top: 0;
+    }
+
+    #yesBtn {
+      left: 0;
+      background-color: transparent;
+      color: black;
+      border: 1px solid #ffffff;
+    }
+
+    #yesBtn:hover {
+      background-color: green;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    #noBtn {
+      left: 170px;
+      background-color: transparent;
+      color: black;
+      border: 1px solid #ffffff;
+    }
+
+    #noBtn:hover {
+      background-color: red;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Tablet & Below */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .button-group {
+        height: 180px;
+      }
+
+      #popup {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+      }
+
+      #noBtn {
+        left: 160px;
+      }
+    }
+
+    /* Phone */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 18px;
+        padding: 12px 20px;
+      }
+
+      .button-group {
+        max-width: 260px;
+        height: 160px;
+      }
+
+      #noBtn {
+        left: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Love Moko?</h1>
+
+  <div class="emoji-container">
+    <img src="gif1.jpg" alt="Funny Reaction">
+    <div id="popup">
+      Please click the Yes button 😭
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button id="yesBtn" onclick="window.location.href='loveyou.html'">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const popup = document.getElementById('popup');
+
+    let moveCount = 0;
+
+    const messages = [
+      { text: "Click muna love pleaseeeeeee 🥺", img: "img1.jpg" },
+      { text: "Love naman eh 🥺", img: "img2.jpg" },
+      { text: "Loveeee loveee 🥺", img: "img3.jpg" },
+      { text: "Is love daw ohhhh 🥺", img: "img4.jpg" },
+      { text: "Please love click muna 🥺", img: "img5.jpg" }
+    ];
+
+    function moveNoBtn() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+      noBtn.style.position = 'fixed';
+
+      moveCount++;
+      if (moveCount >= 3) {
+        showPopup();
+        moveCount = 0;
+      }
+    }
+
+    function showPopup() {
+      const random = messages[Math.floor(Math.random() * messages.length)];
+      popup.innerHTML = `
+        <p>${random.text}</p>
+        <img src="${random.img}" alt="Popup Image">
+      `;
+      popup.style.display = 'block';
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    }
+
+    noBtn.addEventListener('mouseover', moveNoBtn);
+    noBtn.addEventListener('touchstart', moveNoBtn);
+  </script>
+
+</body>
+</html>
